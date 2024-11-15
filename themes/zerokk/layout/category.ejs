@@ -1,0 +1,39 @@
+<div class="category-container">
+    <div class="category-header">
+        <h1 class="category-title">
+            分类：<%= page.category %>
+        </h1>
+        <div class="category-counter">
+            共计 <%= page.posts.length %> 篇文章
+        </div>
+    </div>
+
+    <div class="category-content">
+        <% page.posts.sort('date', -1).each(function(post){ %>
+            <article class="category-post">
+                <div class="post-meta">
+                    <time class="post-time">
+                        <%= date(post.date, 'YYYY-MM-DD') %>
+                    </time>
+                </div>
+                <h2 class="post-title">
+                    <a href="<%- url_for(post.path) %>"><%= post.title || '无标题' %></a>
+                </h2>
+                <% if(post.excerpt){ %>
+                    <div class="post-excerpt">
+                        <%- post.excerpt %>
+                    </div>
+                <% } %>
+            </article>
+        <% }) %>
+    </div>
+
+    <% if (page.total > 1){ %>
+        <nav class="category-pagination">
+            <%- paginator({
+                prev_text: '上一页',
+                next_text: '下一页'
+            }) %>
+        </nav>
+    <% } %>
+</div>

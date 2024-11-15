@@ -1,0 +1,73 @@
+<div class="archive-container">
+    <div class="archive-header">
+        <h1 class="archive-title">
+            <% if (is_year()){ %>
+                <%= page.year %> 年
+            <% } else if (is_month()){ %>
+                <%= page.year %> 年 <%= page.month %> 月
+            <% } else { %>
+                归档
+            <% } %>
+        </h1>
+        <div class="archive-counter">
+            共计 <%= site.posts.length %> 篇文章
+        </div>
+    </div>
+
+    <div class="archive-content">
+        <%
+        let lastYear;
+        let posts = page.posts.sort('date', -1);
+        %>
+        <% posts.each(function(post){ %>
+            <% let currentYear = date(post.date, 'YYYY') %>
+            
+            <% if (lastYear !== currentYear){ %>
+                <% if (lastYear !== undefined){ %>
+                    </div> <!-- 结束上一年的文章组 -->
+                <% } %>
+                
+                <div class="archive-year">
+                    <div class="archive-year-title"><%= currentYear %></div>
+                    <div class="archive-year-posts">
+            <% } %>
+            
+            <article class="archive-item">
+                <div class="archive-item-date">
+                    <%= date(post.date, 'MM-DD') %>
+                </div>
+                <div class="archive-item-title">
+                    <a href="<%- url_for(post.path) %>"><%= post.title || '无标题' %></a>
+                    <% if (post.categories && post.categories.length){ %>
+                        <span class="archive-item-category">
+                            <% post.categories.forEach(function(category, index){ %>
+                                <a href="<%- url_for(category.path) %>"><%= category.name %></a>
+                                <% if (index < post.categories.length - 1){ %>
+                                    <span>,</span>
+                                <% } %>
+                            <% }) %>
+                        </span>
+                    <% } %>
+                </div>
+            </article>
+            
+            <% lastYear = currentYear %>
+        <% }) %>
+        
+        <% if (posts.length){ %>
+            </div></div> <!-- 结束最后一年的文章组 -->
+        <% } %>
+    </div>
+
+    <!-- 分页 -->
+    <% if (page.total > 1){ %>
+        <nav class="archive-pagination">
+            <%- paginator({
+                prev_text: '上一页',
+                next_text: '下一页',
+                mid_size: 2,
+                end_size: 1
+            }) %>
+        </nav>
+    <% } %>
+</div>
