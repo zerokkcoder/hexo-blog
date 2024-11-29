@@ -3,13 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
-subtitle: ''
-description: ''
-keywords:
-author: John Doe
-language: en
-timezone: ''
+title: 技术拾光
+subtitle: '点亮技术的灵感'
+description: '技术拾光是一位中高级开发者的个人博客，专注于记录开发旅程中的技术经验与灵感分享，涵盖后端开发、前端框架、移动应用等领域。博客以深入浅出的方式讲解技术知识，致力于为开发者提供实用、前沿的学习资源。'
+keywords: '技术博客,Golang开发,Flutter移动开发,前端框架,后端开发,技术写作,开发者成长,编程灵感,代码分享,个人博客,技术拾光,MySQL数据库'
+author: zerokkcoder
+language: zh-CN
+timezone: 'Asia/Shanghai'
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
@@ -45,15 +45,19 @@ relative_link: false
 future: true
 syntax_highlighter: highlight.js
 highlight:
-  line_number: true
   auto_detect: false
-  tab_replace: ''
+  line_number: true
+  line_threshold: 0
+  tab_replace: ""
+  exclude_languages:
+    - example
   wrap: true
   hljs: false
 prismjs:
   preprocess: true
   line_number: true
-  tab_replace: ''
+  line_threshold: 0
+  tab_replace: ""
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
@@ -104,3 +108,14 @@ deploy:
   type: git
   repo: https://github.com/zerokkcoder/zerokkcoder.github.io.git
   branch: main
+
+# hexo-generator-sitemap
+sitemap:
+  path: 
+    - sitemap.xml
+    - sitemap.txt
+  template: ./sitemap_template.xml
+  template_txt: ./sitemap_template.txt
+  rel: false
+  tags: true
+  categories: true
